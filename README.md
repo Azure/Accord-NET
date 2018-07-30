@@ -1,28 +1,46 @@
 # Attention
 This is a fork of the open source project: https://github.com/accord-net/framework
+
 We have made a few modification to address the issue (https://github.com/accord-net/framework/issues/1327) in Statistics library:
+
 1. In Sources/Accord.Statistics/Distributions/Univariate/Continuous/MannWhitneyDistribution.cs
+
 	242  double mean = (n1 * n2) / 2.0;                               ======>>       double mean = ((double)n1 * n2) / 2.0;   
+
 	243  double stdDev = Math.Sqrt((n1 * n2 * (n + 1)) / 12.0);       ======>>       double stdDev = Math.Sqrt(((double)n1 * n2 * (n + 1)) / 12.0);
+
 	261  double a = (n1 * n2) / 12.0;                                 ======>>       double a = ((double)n1 * n2) / 12.0;
+
 	288  double t3 = ties[i] * ties[i] * ties[i];                     ======>>       double t3 = (double)ties[i] * ties[i] * ties[i];
+
 	292  return sum / (n * (n - 1));                                  ======>>       return sum / ((double)n * (n - 1));
 
 2. Sources/Accord.Statistics/Testing/TwoSample/MannWhitneyWilcoxonTest.cs
+
 	223  this.Statistic1 = RankSum1 - (NumberOfSamples1 * (NumberOfSamples1 + 1)) / 2.0; // U1
+
 	======>>  this.Statistic1 = RankSum1 - ((double)NumberOfSamples1 * (NumberOfSamples1 + 1)) / 2.0; // U1
+
 	224  this.Statistic2 = RankSum2 - (NumberOfSamples2 * (NumberOfSamples2 + 1)) / 2.0; // U2
+
 	======>>  this.Statistic2 = RankSum2 - ((double)NumberOfSamples2 * (NumberOfSamples2 + 1)) / 2.0; // U2
 
 3. Sources/Accord.Math/Special.cs
+
     292  return Math.Round(Math.Exp(LogFactorial(n) - LogFactorial(k) - LogFactorial(n - k)));
+
 	======>>  var f1 = LogFactorial(n);
+
               var f2 = LogFactorial(k);
+
               var f3 = LogFactorial(n - k);
+
               var p = Math.Exp(f1 - f2 - f3);
+
               return Math.Round(p);
 
 Anyone who fork/modify the repository should be aware that the library is under LGPL-v2.1 license.
+
 https://github.com/Azure/Accord-NET/blob/master/LICENSE
 
 # Accord.NET Framework

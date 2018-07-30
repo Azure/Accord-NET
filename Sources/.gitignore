@@ -1,0 +1,6 @@
+*.GhostDoc.xml
+*.VC.db
+*.VC.VC.opendb
+/.vs/
+/packages/
+_site

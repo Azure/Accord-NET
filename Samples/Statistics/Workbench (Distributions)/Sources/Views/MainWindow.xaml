@@ -1,0 +1,327 @@
+﻿<controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:ViewModels="clr-namespace:Workbench.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:Workbench.Controls"
+        xmlns:Views="clr-namespace:Workbench.Views"
+        xmlns:Behaviors="clr-namespace:Workbench.Behaviors"
+        xmlns:local="clr-namespace:Workbench"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:DISABLED ="http://schemas.microsoft.com/expression/blend/2008"
+        x:Class="Workbench.MainWindow"
+        Title="Statistics Workbench" 
+        mc:Ignorable="DISABLED" 
+        Width="1024" 
+        Height="700" 
+        Icon="..\StatisticsWorkbench.ico" 
+
+        WindowTitleBrush="#FF333333"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="#FF333333"
+        BorderThickness="1"
+        GlowBrush="#FF333333"
+    
+        TitleCaps="False" 
+        SaveWindowPosition="True"
+        ShowTitleBar="True" 
+        WindowTransitionsEnabled="False">
+
+    <controls:MetroWindow.DataContext>
+        <ViewModels:MainViewModel />
+    </controls:MetroWindow.DataContext>
+
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </controls:MetroWindow.Resources>
+
+    <controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                 Height="{TemplateBinding Height}"
+                 Margin="4"
+                 Background="Transparent"
+                 RenderOptions.EdgeMode="Aliased"
+                 RenderOptions.BitmapScalingMode="HighQuality">
+                <Image Source="..\StatisticsWorkbench.ico"/>
+            </Grid>
+        </DataTemplate>
+    </controls:MetroWindow.IconTemplate>
+
+    <i:Interaction.Behaviors>
+        <Behaviours:BorderlessWindowBehavior EnableDWMDropShadow="True" />
+        <Behaviours:WindowsSettingBehaviour />
+        <Behaviours:GlowWindowBehavior />
+    </i:Interaction.Behaviors>
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl/>
+    </controls:MetroWindow.Flyouts>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Accord.NET Framework" Foreground="White" Background="Black" 
+			Padding="12, 5, 0, 0" Height="29" VerticalAlignment="Top" Grid.Row="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="290"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer x:Name="scroll" Grid.Column="0" Grid.ColumnSpan="1" Margin="10,10,10,10" Padding="0,0,10,0"
+                           Grid.RowSpan="1" Style="{DynamicResource ScrollViewerStyle1}">
+                <ListView ItemsSource="{Binding Distributions}" 
+                	SelectedIndex="{Binding SelectedDistributionIndex}" BorderThickness="0" SelectionMode="Single">
+                    <i:Interaction.Behaviors>
+                        <Behaviors:IgnoreMouseWheelBehavior />
+                    </i:Interaction.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}" Foreground="#FF1364C4" Cursor="Hand"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            <GridSplitter Background="DarkGray" Grid.ColumnSpan="1" ResizeDirection="Columns" Grid.Column="1" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                  ResizeBehavior="PreviousAndNext" BorderThickness="0,0,1,0" Grid.RowSpan="2" />
+
+            <TabControl Grid.Column="2" Grid.RowSpan="2" >
+                <TabItem Header="Overview" DataContext="{Binding SelectedDistribution, Mode=OneWay}">
+                    <ScrollViewer Style="{DynamicResource ScrollViewerStyle1}">
+                        <Views:DocumentationView DataContext="{Binding Documentation, Mode=OneWay}" Margin="10,0,0,0" />
+                    </ScrollViewer>
+
+                </TabItem>
+                <TabItem Header="Measures" DataContext="{Binding SelectedDistribution, Mode=OneWay}">
+                    <ContentControl Visibility="{Binding IsInitialized, Converter={StaticResource BoolToVisibility}, Mode=OneWay}">
+                        <Views:MeasuresView Grid.Column="0" Grid.ColumnSpan="1" Margin="24,10,24,0" 
+                                                VerticalAlignment="Top" Height="550" Width="Auto"
+                                                DataContext="{Binding Measures}"/>
+                    </ContentControl>
+                </TabItem>
+                <TabItem Header="Analysis" DataContext="{Binding Analysis, Mode=OneWay}">
+                    <Views:AnalysisView VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                        Height="auto" Width="auto" />
+                </TabItem>
+                <TabItem Header="Estimation" DataContext="{Binding Estimate}" IsSelected="{Binding IsEditorVisible}" 
+                         local:AttachedProperties.CommandBindings="{Binding CommandBindings}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="StackPanel">
+                                    <Style.Resources>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Opacity" Value=".1" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Opacity" Value="1" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="MinWidth" Value="32" />
+                                            <Setter Property="Height" Value="32" />
+                                            <Setter Property="Opacity" Value=".6" />
+                                            <Setter Property="Margin" Value="0, 0, 0, 0" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <Border Padding="10, 0, 0, 0">
+                                                                <Rectangle Width="16" Height="16">
+                                                                    <Rectangle.Fill>
+                                                                        <VisualBrush Visual="{Binding Tag, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"  />
+                                                                    </Rectangle.Fill>
+                                                                </Rectangle>
+                                                            </Border>
+                                                            <TextBlock Padding="5,0,10,0" Text="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"  />
+                                                        </StackPanel>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Style.Resources>
+                                </Style>
+                                <Style TargetType="CheckBox">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5,0,0,0" />
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Button Command="{Binding NewCommand, Mode=OneWay}" Tag="{StaticResource appbar_page_new}" ToolTip="New file" />
+                            <Button Command="{Binding OpenCommand, Mode=OneWay}" Tag="{StaticResource appbar_folder_open}" ToolTip="Open file"  />
+                            <xctk:SplitButton Command="{Binding SaveCommand, Mode=OneWay}" ToolTip="Save" BorderBrush="White" Foreground="White" Background="White">
+                                <xctk:SplitButton.Content>
+                                    <Rectangle Width="16" Height="16">
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_save}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </xctk:SplitButton.Content>
+                                <xctk:SplitButton.DropDownContent>
+                                    <Button Content="Save As ..." Command="{Binding SaveCommand, Mode=OneWay}" CommandParameter="SaveAs" BorderBrush="White" BorderThickness="0"/>
+                                </xctk:SplitButton.DropDownContent>
+                            </xctk:SplitButton>
+                            <Button Command="ApplicationCommands.Copy" CommandTarget="{Binding ElementName=dataGrid}" Tag="{StaticResource appbar_page_copy}" ToolTip="Copy from clipboard" />
+                            <Button Command="ApplicationCommands.Paste" Tag="{StaticResource appbar_clipboard_paste}" ToolTip="Paste from clipboard" />
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                            <CheckBox Name="cbWeights" IsChecked="{Binding IsWeightColumnVisible}">Weights</CheckBox>
+                            <CheckBox Name="cbDetails">Details</CheckBox>
+                            <Button Name="btnEstimate" Command="{Binding EstimateCommand, Mode=OneWay}" 
+                                    DISABLED:Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibility}}"
+                                    Content="Estimate!" Tag="{StaticResource appbar_man_suitcase_run}" ToolTip="Compute" />
+                            <controls:ToggleSwitch OnLabel="Estimate on edit" OffLabel="Don't update" IsChecked="{Binding IsUpdatedOnEdit, Mode=TwoWay}"
+                                    DISABLED:Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibility}, ElementName=btnEstimate}"
+                                    IsEnabled="{Binding IsEnabled, ElementName=btnEstimate}" FontSize="10" Width="150" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <DataGrid Name="dataGrid" Margin="0,10,10,10" Grid.RowSpan="3" Grid.Row="1"
+                                      CanUserAddRows="True" CanUserDeleteRows="True" 
+                                      AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" RowHeaderWidth="30" 
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      HeadersVisibility="All" CurrentCell="{Binding CurrentCell, Mode=TwoWay}"
+                                      ItemsSource="{Binding Values, Mode=OneWay}">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Value, Mode=TwoWay}" Header="Value" MinWidth="100"/>
+                                <DataGridTextColumn Visibility="{Binding IsChecked, Source={x:Reference cbWeights}, Converter={StaticResource BoolToVisibility}}" Binding="{Binding Weight, Mode=TwoWay}" Header="Weight" MinWidth="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <DataGrid Grid.Column="1" Margin="0,10.333,10.333,349" Grid.Row="1" ItemsSource="{Binding Analysis}" 
+                                      AutoGenerateColumns="False" HorizontalAlignment="Left" CanUserAddRows="False"
+                                      Grid.RowSpan="1" MinHeight="100">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Rank, Mode=OneTime}" Header="Rank" MinWidth="70">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Name, Mode=OneTime}" Header="Distribution" MinWidth="100"/>
+                                <DataGridTextColumn Binding="{Binding KolmogorovSmirnov, Mode=OneTime}" Header="Kolmogorov-Smirnov" Visibility="{Binding IsChecked, Source={x:Reference cbDetails}, Converter={StaticResource BoolToVisibility}}" MinWidth="100" />
+                                <DataGridTextColumn Binding="{Binding ChiSquare, Mode=OneTime}" Header="Chi-Square" Visibility="{Binding IsChecked, Source={x:Reference cbDetails}, Converter={StaticResource BoolToVisibility}}" MinWidth="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Message}" Margin="15,15,15,15" FontSize="18" Foreground="#FFEB2323" TextWrapping="Wrap" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <Grid Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                  Margin="10,10,8,10" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="81*"/>
+                    <ColumnDefinition Width="151*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:ProgressRing Grid.Row="0" Grid.ColumnSpan="3" MinHeight="120"
+                                       Margin="10,10,10,10" Grid.RowSpan="1" Panel.ZIndex="90" 
+                                       IsActive="{Binding SelectedDistribution.IsInitializing, Mode=OneWay}"/>
+
+                <oxy:PlotView Grid.Row="0" Grid.ColumnSpan="3" MinHeight="120"
+                              Model="{Binding SelectedDistribution.DensityFunction, Mode=OneWay}" 
+                              Margin="10,10,10,10" Grid.RowSpan="1" />
+                <StackPanel Grid.ColumnSpan="3" Grid.RowSpan="1" Grid.Row="1" 
+                            DataContext="{Binding SelectedDistribution, Mode=OneWay}">
+                    <Label Content="Parameters" HorizontalAlignment="Left" Height="26"
+                        Foreground="Black" FontSize="14" FontWeight="Bold" Padding="5,2,0,0"/>
+                    <ItemsControl ItemsSource="{Binding Parameters}" Margin="10,10,10,10"
+                	 BorderThickness="0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5, 0, 0, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="{Binding Name}" Grid.Column="0" Foreground="#FF1364C4" />
+                                    <xctk:DoubleUpDown Watermark="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" 
+                                           Minimum="{Binding Min}" Maximum="{Binding Max}" Increment="{Binding Step}"
+                                           Grid.Column="1" Foreground="#FF1364C4" TextAlignment="Center" MouseWheelActiveTrigger="MouseOver" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Label Content="Properties" HorizontalAlignment="Left" Height="26" FontSize="14"
+                         FontWeight="Bold" Padding="5,2,0,0"/>
+                    <ItemsControl Grid.Column="0" Grid.ColumnSpan="1" Margin="10,10,10,10"
+                	ItemsSource="{Binding Properties}" BorderThickness="0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5, 0, 0, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="{Binding Name}" Grid.Column="0" Foreground="#FF1364C4" />
+                                    <Label Content="{Binding Value}" ContentStringFormat="{}{0:G6}" Grid.Column="1" Foreground="#FF1364C4" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3" 
+                            Visibility="{Binding Path=ShowEditor, Converter={StaticResource BoolToVisibility}}">
+                    <Label Content="Estimation" HorizontalAlignment="Left" Height="26" FontSize="14"
+                           DataContext="{Binding SelectedDistribution, Mode=OneWay}" FontWeight="Bold" Padding="5,2,0,0" 
+                           Visibility="{Binding Path=HasOptions, Converter={StaticResource BoolToVisibility}}" />
+                    <xctk:PropertyGrid  VerticalAlignment="Top" DataContext="{Binding SelectedDistribution, Mode=OneWay}"
+                                HorizontalAlignment="Left" MinWidth="200" Height="auto"
+                                SelectedObject="{Binding EstimationOptions, Mode=OneWay}"
+                                IsEnabled="{Binding HasOptions, Mode=OneWay}" 
+                                Background="White" BorderBrush="{x:Null}" Margin="10,10,10,10"
+                                ShowSummary="False" ShowTitle="False" IsCategorized="False"
+                                ShowSortOptions="False" ShowSearchBox="False"
+                                Visibility="{Binding Path=HasOptions, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+                <Label Content="Generate" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="0" Grid.RowSpan="1" />
+                <TextBox Text="{Binding Estimate.NumberOfSamplesToBeGenerated,Mode=TwoWay}" Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" />
+                <Button Content="Go" Grid.Column="2" Grid.Row="3" Command="{Binding Estimate.GenerateCommand}"/>
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+</controls:MetroWindow>

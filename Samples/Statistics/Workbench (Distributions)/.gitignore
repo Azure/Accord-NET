@@ -1,0 +1,10 @@
+/Binaries
+/Sources/obj
+
+/packages
+/Sources/Resources/Template/packages
+
+*.suo
+*.user
+*.GhostDoc.xml
+/.vs/

@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{987E989A-E48B-428F-A392-0E7EEC9BCECD}</ProjectGuid>
+    <RootNamespace>Accord.Tests.MachineLearning</RootNamespace>
+    <AssemblyName>Accord.Tests.MachineLearning</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)..\Unit Tests\Accord.Tests.targets" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net35|AnyCPU' ">
+    <DefineConstants>TRACE;NET35</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net40|AnyCPU' ">
+    <DefineConstants>TRACE;NET40</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net45|AnyCPU' ">
+    <DefineConstants>TRACE;NET45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net46|AnyCPU' ">
+    <DefineConstants>TRACE;NET46</DefineConstants>
+    <CodeAnalysisRuleSet>..\..\Sources\Accord.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net462|AnyCPU' ">
+    <DefineConstants>TRACE;NET462</DefineConstants>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'mono|AnyCPU' ">
+    <DefineConstants>TRACE;MONO</DefineConstants>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Externals\Json.NET\Json100r3\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Externals\NUnit\NUnit.Framework-3.6.1\bin\net-4.5\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <!--
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Release (3.5)|AnyCPU'">
+  	<Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' != 'Release (3.5)|AnyCPU'">
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+ -->
+  <ItemGroup>
+    <Compile Include="..\..\Samples\MachineLearning\Liblinear %28SVMs%29\Parameters.cs">
+      <Link>VectorMachines\Liblinear\Parameters.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Samples\MachineLearning\Liblinear %28SVMs%29\Problem.cs">
+      <Link>VectorMachines\Liblinear\Problem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Samples\MachineLearning\Liblinear %28SVMs%29\Train.cs">
+      <Link>VectorMachines\Liblinear\Train.cs</Link>
+    </Compile>
+    <Compile Include="Boosting\DecisionStumpTest.cs" />
+    <Compile Include="Clustering\KMedoidsPAMTest.cs" />
+    <Compile Include="Clustering\KMedoidsVITest.cs" />
+    <Compile Include="Clustering\MiniBatchKMeansTest.cs" />
+    <Compile Include="DecisionTrees\DecisionTreeWriterTest.cs" />
+    <Compile Include="IO\SerializationTest.cs" />
+    <Compile Include="Kernels\TensorTest.cs" />
+    <Compile Include="Kernels\SplineTest.cs" />
+    <Compile Include="POSTest.cs" />
+    <Compile Include="QLearningTest.cs" />
+    <Compile Include="SarsaTest.cs" />
+    <Compile Include="TFIDFTest.cs" />
+    <Compile Include="BagOfWordsTest.cs" />
+    <Compile Include="Boosting\AdaBoostTest.cs" />
+    <Compile Include="AprioriTest.cs" />
+    <Compile Include="BootstrapTest.cs" />
+    <Compile Include="Clustering\BinarySplitTest.cs" />
+    <Compile Include="Clustering\BalancedKMeansTest.cs" />
+    <Compile Include="DecisionTrees\RandomForestTest.cs" />
+    <Compile Include="DecisionTrees\DecisionRuleTest.cs" />
+    <Compile Include="DecisionTrees\ReducedErrorPruningTest.cs" />
+    <Compile Include="DecisionTrees\ErrorBasedPruningTest.cs" />
+    <Compile Include="Clustering\MeanShiftTest.cs" />
+    <Compile Include="DecisionTrees\SimplificationTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RansacTest.cs" />
+    <Compile Include="Clustering\TSNETest.cs" />
+    <Compile Include="IO\LibSvmModelTest.cs" />
+    <Compile Include="KNearestNeighbors\KnnPerformanceTest.cs" />
+    <Compile Include="Statistics\CodificationFilterSvmTest.cs" />
+    <Compile Include="Statistics\ReceiverOperatingCharacteristicSvmTest.cs" />
+    <Compile Include="Structures\KDTreeTest.cs" />
+    <Compile Include="RansacLineTest.cs" />
+    <Compile Include="RansacPlaneTest.cs" />
+    <Compile Include="SplitSetTest.cs" />
+    <Compile Include="DecisionTrees\C45LearningTest.cs" />
+    <Compile Include="DecisionTrees\DecisionTreeCompilerTest.cs" />
+    <Compile Include="Bayes\NaiveBayes`1Test.cs" />
+    <Compile Include="CrossvalidationTest.cs" />
+    <Compile Include="DecisionTrees\DecisionTreeTest.cs" />
+    <Compile Include="Clustering\GaussianMixtureModelTest.cs" />
+    <Compile Include="GridsearchTest.cs" />
+    <Compile Include="DecisionTrees\ID3LearningTest.cs" />
+    <Compile Include="Kernels\DynamicTimeWarpingTest.cs" />
+    <Compile Include="Clustering\KMeansTest.cs" />
+    <Compile Include="Clustering\KModesTest.cs" />
+    <Compile Include="KNearestNeighbors\KNearestNeighborsTest.cs" />
+    <Compile Include="KNearestNeighbors\NaiveNearestNeighbors.cs" />
+    <Compile Include="Structures\SPTreeTest.cs" />
+    <Compile Include="Structures\VPTreeTest.cs" />
+    <Compile Include="VectorMachines\LinearCoordinateDescentTest.cs" />
+    <Compile Include="VectorMachines\Liblinear\LiblinearTest.cs" />
+    <Compile Include="VectorMachines\LinearDualCoordinateDescentTest.cs" />
+    <Compile Include="VectorMachines\AveragedStochasticGradientDescentTest.cs" />
+    <Compile Include="VectorMachines\FanChenLinSequentialMinimalOptimizationTest.cs" />
+    <Compile Include="VectorMachines\Regression\FanChenLinSequentialMinimalOptimizationRegressionTest.cs" />
+    <Compile Include="VectorMachines\StochasticGradientDescentTest.cs" />
+    <Compile Include="VectorMachines\LinearNewtonMethodTest.cs" />
+    <Compile Include="VectorMachines\LeastSquaresLearningTest.cs" />
+    <Compile Include="VectorMachines\OneclassSupportVectorLearningTest.cs" />
+    <Compile Include="VectorMachines\Probabilistic\ProbabilisticCoordinateDescentTest.cs" />
+    <Compile Include="VectorMachines\Probabilistic\ProbabilisticDualCoordinateDescentTest.cs" />
+    <Compile Include="VectorMachines\Probabilistic\ProbabilisticNewtonMethodTest.cs" />
+    <Compile Include="VectorMachines\Regression\LinearRegressionCoordinateDescentTest.cs" />
+    <Compile Include="VectorMachines\Regression\LinearRegressionNewtonMethodTest.cs" />
+    <Compile Include="VectorMachines\SupportVectorReductionTest.cs" />
+    <Compile Include="VectorMachines\MultilabelSupportVectorLearningTest.cs" />
+    <Compile Include="VectorMachines\ProbabilisticOutputCalibrationTest.cs" />
+    <Compile Include="VectorMachines\MulticlassSupportVectorLearningTest.cs" />
+    <Compile Include="VectorMachines\MulticlassSupportVectorMachineTest.cs" />
+    <Compile Include="Bayes\NaiveBayesTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VectorMachines\SequentialMinimalOptimizationTest.cs" />
+    <Compile Include="VectorMachines\KernelSupportVectorMachineTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sources\Accord.Audio\Accord.Audio.csproj">
+      <Project>{E7B65F08-82F1-438F-847A-2AAC2BEC9AC0}</Project>
+      <Name>Accord.Audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.Core\Accord.Core.csproj">
+      <Project>{A177A90C-8207-466A-AF70-F2B8452A42AC}</Project>
+      <Name>Accord.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.DataSets\Accord.DataSets.csproj">
+      <Project>{f11a77c5-00b3-4921-acf5-4728f6576efd}</Project>
+      <Name>Accord.DataSets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.IO\Accord.IO.csproj">
+      <Project>{63184EBD-6B28-4066-AAEE-5B99431E31F4}</Project>
+      <Name>Accord.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.MachineLearning\Accord.MachineLearning.csproj">
+      <Project>{7AB4BBCC-6222-423D-9FF9-BA9CB7C09199}</Project>
+      <Name>Accord.MachineLearning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.Math.Core\Accord.Math.Core.csproj">
+      <Project>{ed3a336f-6da2-4f34-87fe-1ccffa029f8c}</Project>
+      <Name>Accord.Math.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.Math\Accord.Math.csproj">
+      <Project>{F718E9A8-DB62-4785-8C49-4333A60D256A}</Project>
+      <Name>Accord.Math</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sources\Accord.Statistics\Accord.Statistics.csproj">
+      <Project>{FD8101DD-C95D-42D6-AD44-AE01C25F2811}</Project>
+      <Name>Accord.Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Accord.Tests.Statistics\Accord.Tests.Statistics.csproj">
+      <Project>{49679C95-28CE-4D35-8F38-3D67A511A3C1}</Project>
+      <Name>Accord.Tests.Statistics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\gh608\data16.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\gh608\labels16.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\iris.data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\iris.scale.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\liblinear\L1R_LR_a9a.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\liblinear\L1R_LR_DUAL_a9a.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\liblinear\L2R_LR_a9a.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Accord.snk" />
+    <None Include="Resources\examples.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\rforest\features.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\kmeans.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\liblinear\a9a.test">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\liblinear\a9a.train">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CircleWithWeights.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\ml-svm.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\pca_mnist.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\pca_mnist_v3_1.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\t10k-images-idx3-ubyte.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\t10k-labels-idx1-ubyte.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\train-images-idx3-ubyte.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mnist\train-labels-idx1-ubyte.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\nb.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\nb2.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\nursery.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Shapes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\svm2.svm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\rforest\times.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\trainingsample.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\tree.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\validationsample.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\svm1.svm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
